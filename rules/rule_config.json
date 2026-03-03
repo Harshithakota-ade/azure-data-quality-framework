@@ -1,0 +1,54 @@
+{
+  "dataset_name": "customer_orders",
+  "primary_keys": ["order_id", "order_item_id"],
+  "rules": [
+    {
+      "rule_id": "R001",
+      "rule_type": "NOT_NULL",
+      "column": "order_id",
+      "severity": "HIGH",
+      "description": "order_id must not be null"
+    },
+    {
+      "rule_id": "R002",
+      "rule_type": "NOT_NULL",
+      "column": "customer_id",
+      "severity": "HIGH",
+      "description": "customer_id must not be null"
+    },
+    {
+      "rule_id": "R003",
+      "rule_type": "UNIQUE",
+      "columns": ["order_id", "order_item_id"],
+      "severity": "HIGH",
+      "description": "order_id + order_item_id must be unique"
+    },
+    {
+      "rule_id": "R004",
+      "rule_type": "RANGE_CHECK",
+      "column": "order_amount",
+      "min_value": 0,
+      "max_value": 1000000,
+      "severity": "MEDIUM",
+      "description": "order_amount must be between 0 and 1,000,000"
+    },
+    {
+      "rule_id": "R005",
+      "rule_type": "REGEX_CHECK",
+      "column": "email",
+      "pattern": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+      "severity": "LOW",
+      "description": "email must be valid format"
+    },
+    {
+      "rule_id": "R006",
+      "rule_type": "THRESHOLD_CHECK",
+      "metric": "null_rate",
+      "column": "email",
+      "operator": "<=",
+      "threshold": 0.05,
+      "severity": "MEDIUM",
+      "description": "email null rate must be <= 5%"
+    }
+  ]
+}
